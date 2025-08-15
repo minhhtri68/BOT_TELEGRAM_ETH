@@ -668,6 +668,13 @@ def main():
     except KeyboardInterrupt:
         print("\n🛑 Bot đã dừng!")
         safe_log("Bot stopped by user")
-
+        # Gửi báo cáo hiệu suất cuối ngày nếu có tín hiệu
+        daily_performance_report()
+        print("📊 Báo cáo hiệu suất cuối ngày đã gửi!")
+    # Thêm đoạn này vào cuối file, sau phần if __name__ == "__main__":
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--cron" in sys.argv:
+        send_analysis_alert()  # Chỉ chạy 1 lần rồi dừng
+    else:
+        main()  # Chạy liên tục (dành cho local)
